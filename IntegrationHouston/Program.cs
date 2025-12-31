@@ -5,6 +5,7 @@ using Integration.Houston.Application.Infrastructure.Mapper;
 using Integration.Houston.Application.Infrastructure.Repositorie;
 using Integration.Houston.Application.Infrastructure.Services;
 using IntegrationHouston;
+using IntegrationHouston.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.EntityFrameworkCore;
@@ -121,7 +122,7 @@ var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
+app.UseMiddleware<BasicAuthMiddleware>();
 app.MapPost("api/v1/Security/login", (ExternalLogin req) =>
 {
 
@@ -163,7 +164,7 @@ app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-
+ 
 app.MapControllers();
 
 app.Run();
