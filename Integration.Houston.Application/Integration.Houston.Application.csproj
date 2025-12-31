@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Integration.Houston.Application.Contract\Integration.Houston.Application.Contract.csproj" />
+    <ProjectReference Include="..\Integration.Houston.Application.Infrastructure\Integration.Houston.Application.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
