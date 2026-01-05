@@ -16,17 +16,38 @@ namespace Integration.Houston.Application.Infrastructure.Services
         public Task<CreditcardTransaction> AddTransaction(CreditCardCommand T);
 
         public Task<CreditcardTransaction> GetTransaction(Guid transactionId);
+
+        public Task<CryptoTransaction> AddCryotoTransaction(CryptoCommand T);
+
+        public Task<CryptoTransaction> GetCryptoTransaction(Guid transactionId);
     }
     public class ServiceTransaction : IserviceTransaction
     {
         private ITransactionRepositorie _transactionRepositorie;
         private IMapper _mapper;
+        private ICryptoTransactionRepositories _cryptoTransactionRepositories;
 
-        public ServiceTransaction(ITransactionRepositorie transactionRepositorie, IMapper mapper)
+        public ServiceTransaction(ITransactionRepositorie transactionRepositorie, IMapper mapper,ICryptoTransactionRepositories cryptoTransactionRepositories)
         {
             _transactionRepositorie = transactionRepositorie;
             _mapper = mapper;
+            _cryptoTransactionRepositories = cryptoTransactionRepositories;
         }
+
+        public async Task<CryptoTransaction> AddCryotoTransaction(CryptoCommand T)
+        {
+            var crypto = await _cryptoTransactionRepositories.AddTransaction(new TransactionsCrypto()
+            { 
+                 Id = Guid.NewGuid(),
+                 Monto = T.Monto,
+                 merchanttransactionid =T.ReferenceCode ,
+                 CreatedAt = DateTime.UtcNow,
+                 UpdatedAt = DateTime.UtcNow
+
+            });
+            return _mapper.Map<CryptoTransaction>(crypto);
+        }
+
         public async Task<CreditcardTransaction> AddTransaction(CreditCardCommand T)
         {
             var addtra = await _transactionRepositorie.AddTransaction(new Transactions()
@@ -37,10 +58,17 @@ namespace Integration.Houston.Application.Infrastructure.Services
                MerchantId = string.Empty,
                Monto = T.transaction.order.additionalValues.TX_VALUE.value,
                Status ="Created",
-               TransactionId = string.Empty
+               TransactionId = string.Empty ,
+               merchanttransactionid = T.transaction.order.referenceCode 
             });
 
             return _mapper.Map<CreditcardTransaction>(addtra);
+        }
+
+        public async Task<CryptoTransaction> GetCryptoTransaction(Guid transactionId)
+        {
+            var trans = await _cryptoTransactionRepositories.GetTransaction(transactionId);
+            return _mapper.Map<CryptoTransaction>(trans);
         }
 
         public async Task<CreditcardTransaction> GetTransaction(Guid transactionId)

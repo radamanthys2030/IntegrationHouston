@@ -20,12 +20,23 @@ namespace Integration.Houston.Application
 
 
         }
+
+        public async Task<CryptoTransaction> AddTCryptoTransaction(CryptoCommand T)
+        {
+           return await _iserviceTransaction.AddCryotoTransaction(T);
+        }
+
         public async Task<CreditcardTransaction> AddTransaction(CreditCardCommand T)
         {
             return await _iserviceTransaction.AddTransaction(T); 
 
 
          }
+
+        public async Task<CryptoTransaction> GetCryptoTransaction(Guid transactionId)
+        {
+            return await _iserviceTransaction.GetCryptoTransaction(transactionId);
+        }
 
         public async Task<CreditcardTransaction> GetTransaction(Guid transactionId)
         {

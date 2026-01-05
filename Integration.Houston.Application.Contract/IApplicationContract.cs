@@ -13,5 +13,11 @@ namespace Integration.Houston.Application.Contract
         public Task<CreditcardTransaction> AddTransaction(CreditCardCommand T);
 
         public Task<CreditcardTransaction> GetTransaction(Guid transactionId);
+
+        public Task<CryptoTransaction> AddTCryptoTransaction(CryptoCommand T);
+
+        public Task<CryptoTransaction> GetCryptoTransaction(Guid transactionId);
+
+
     }
 }

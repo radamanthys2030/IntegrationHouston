@@ -3,28 +3,27 @@ using Integration.Houston.Application.Contract.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace IntegrationHouston.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
     [Authorize]
-    public class CreditCardController : ControllerBase
+    public class CryptoController : ControllerBase
     {
         private IApplicationContract _applicationContract;
 
-        public CreditCardController(IApplicationContract applicationContract)
+        public CryptoController(IApplicationContract applicationContract)
         {
             _applicationContract = applicationContract;
         }
 
         [HttpPost]
-        [Route("Transaction", Name = "CreditCard_Transaction")]
-       
-        public async Task<IActionResult>  Transaction(CreditCardCommand creditCardCommand)
+        [Route("Transaction", Name = "Crypto_Transaction")]
+
+        public async Task<IActionResult> Transaction(CryptoCommand creditCardCommand)
         {
-            var tra = await _applicationContract.AddTransaction(creditCardCommand);
+            var tra = await _applicationContract.AddTCryptoTransaction(creditCardCommand);
             return Ok(tra);
         }
 
@@ -32,10 +31,8 @@ namespace IntegrationHouston.Controllers
         [HttpGet("Transactiondetails/{id}")]
         public async Task<IActionResult> GetPago(Guid id)
         {
-            var trans = await _applicationContract.GetTransaction(id);
+            var trans = await _applicationContract.GetCryptoTransaction(id);
             return Ok(trans);
         }
-
-
     }
 }

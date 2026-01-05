@@ -14,6 +14,8 @@ namespace Integration.Houston.Application.Infrastructure.EntityFramework
     {
 
         public DbSet<Transactions> Transactions { get; set; }
+        public DbSet<TransactionsCrypto> TransactionsCrypto { get; set; }
+
 
         public TransactiondbContext(DbContextOptions<TransactiondbContext> options) : base(options)
         {
@@ -71,7 +73,43 @@ namespace Integration.Houston.Application.Infrastructure.EntityFramework
 
             });
 
-           
-        }
+
+            modelBuilder.Entity<TransactionsCrypto>(builder =>
+            {
+                builder.HasKey(x => x.Id);
+
+
+                builder.ToTable("transactions_crypto");
+
+                builder.HasKey(t => t.Id);
+
+                builder.Property(t => t.Id)
+                      .HasColumnName("id");
+
+                builder.Property(t => t.merchanttransactionid).HasColumnName("merchanttransactionid");
+
+                builder.Property(t => t.Monto).HasColumnName("monto");
+
+                builder.Property(t => t.UsdtAddres).HasColumnName("usdtaddres");
+
+                builder.Property(t => t.TransactionId).HasColumnName("transaction_id");
+
+                builder.Property(t => t.MerchantId).HasColumnName("merchant_id");
+
+                builder.Property(t => t.Status).HasColumnName("status");
+
+                builder.Property(t => t.ErrorMessage).HasColumnName("error_message");
+
+                builder.Property(t => t.CreatedAt).HasColumnName("created_at");
+
+                builder.Property(t => t.UpdatedAt).HasColumnName("updated_at");
+
+                
+
+
+            });
+
+
+            }
     }
 }

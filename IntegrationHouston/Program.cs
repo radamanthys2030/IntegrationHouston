@@ -24,6 +24,8 @@ builder.Services.AddOpenApi();
 
 
 builder.Services.AddTransient<ITransactionRepositorie, TransactionRepositorie>();
+builder.Services.AddTransient<ICryptoTransactionRepositories, CryptoTransactionRepositories>();
+
 builder.Services.AddTransient<IserviceTransaction, ServiceTransaction>();
 builder.Services.AddTransient<IApplicationContract, TransactionApplication>();
 

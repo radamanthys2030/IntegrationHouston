@@ -14,6 +14,8 @@ namespace Integration.Houston.Application.Infrastructure.Mapper
         public MapperProfile() {
 
             CreateMap<Transactions, CreditcardTransaction>();
+            CreateMap<TransactionsCrypto, CryptoTransaction>();
+
         }
     }
 }

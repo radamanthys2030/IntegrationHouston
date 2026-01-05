@@ -39,5 +39,7 @@ namespace Integration.Houston.Application.Infrastructure.Models.Entity
         [Column("error_message")]
         public string? ErrorMessage { get; set; }
 
+        public string merchanttransactionid { get; set; }
+
     }
 }
