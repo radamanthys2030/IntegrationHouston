@@ -14,6 +14,7 @@
         {
             var path = context.Request.Path.Value;
 
+
             if (path.StartsWith("/swagger"))
             {
                 string authHeader = context.Request.Headers["Authorization"];
