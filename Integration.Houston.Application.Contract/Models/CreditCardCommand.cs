@@ -30,10 +30,10 @@ namespace Integration.Houston.Application.Contract.Models
     public class Merchant
     {
         // Usuario/login provisto por PayU (API Login)
-        public string apiLogin { get; set; }
+        public string apiLogin { get; set; } = "TU_API_LOGIN";
 
         // API Key provista por PayU
-        public string apiKey { get; set; }
+        public string apiKey { get; set; } = "TU_API_KEY";
     }
 
     public class Transaction
@@ -91,7 +91,7 @@ namespace Integration.Houston.Application.Contract.Models
         public string? signature { get; set; }
 
         // URL de notificación (webhook del comercio)
-        public string notifyUrl { get; set; }
+        public string notifyUrl { get; set; } = "https://tu-dominio.com/payu/webhook";
 
         // Valores de la transacción (monto, impuestos, etc.)
         public AdditionalValues additionalValues { get; set; } = new();
