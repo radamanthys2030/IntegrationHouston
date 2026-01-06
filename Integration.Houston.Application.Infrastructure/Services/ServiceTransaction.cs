@@ -34,15 +34,26 @@ namespace Integration.Houston.Application.Infrastructure.Services
             _cryptoTransactionRepositories = cryptoTransactionRepositories;
         }
 
+
+        private  string GenerateRandomAddress(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+
         public async Task<CryptoTransaction> AddCryotoTransaction(CryptoCommand T)
         {
             var crypto = await _cryptoTransactionRepositories.AddTransaction(new TransactionsCrypto()
-            { 
-                 Id = Guid.NewGuid(),
-                 Monto = T.Monto,
-                 merchanttransactionid =T.ReferenceCode ,
-                 CreatedAt = DateTime.UtcNow,
-                 UpdatedAt = DateTime.UtcNow
+            {
+                Id = Guid.NewGuid(),
+                Monto = T.Monto,
+                merchanttransactionid = T.ReferenceCode,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                UsdtAddres = GenerateRandomAddress(48)
 
             });
             return _mapper.Map<CryptoTransaction>(crypto);
