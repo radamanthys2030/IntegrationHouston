@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Integration.Houston.Application.Contract.Models.Dto
@@ -11,6 +12,8 @@ namespace Integration.Houston.Application.Contract.Models.Dto
         public Guid? Id { get; set; }
         public decimal? Monto { get; set; }
         public string? UsdtAddres { get; set; }
+
+        [JsonIgnore]
         public string? TransactionId { get; set; }
         public string? MerchantId { get; set; }
         public string? Status { get; set; }

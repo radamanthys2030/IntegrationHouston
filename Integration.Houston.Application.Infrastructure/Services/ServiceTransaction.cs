@@ -26,12 +26,15 @@ namespace Integration.Houston.Application.Infrastructure.Services
         private ITransactionRepositorie _transactionRepositorie;
         private IMapper _mapper;
         private ICryptoTransactionRepositories _cryptoTransactionRepositories;
+        private ICryptoProcessor _cryptoProcessor;
 
-        public ServiceTransaction(ITransactionRepositorie transactionRepositorie, IMapper mapper,ICryptoTransactionRepositories cryptoTransactionRepositories)
+        public ServiceTransaction(ITransactionRepositorie transactionRepositorie, IMapper mapper,ICryptoTransactionRepositories cryptoTransactionRepositories, ICryptoProcessor cryptoProcessor)
         {
             _transactionRepositorie = transactionRepositorie;
             _mapper = mapper;
             _cryptoTransactionRepositories = cryptoTransactionRepositories;
+
+            _cryptoProcessor = cryptoProcessor;
         }
 
 
@@ -46,14 +49,21 @@ namespace Integration.Houston.Application.Infrastructure.Services
 
         public async Task<CryptoTransaction> AddCryotoTransaction(CryptoCommand T)
         {
+              Guid transId = Guid.NewGuid();
+
+             var procesadorResponse = await _cryptoProcessor.CreateCryptoTransaction(T.ReferenceCode, T.Monto, transId);
+
             var crypto = await _cryptoTransactionRepositories.AddTransaction(new TransactionsCrypto()
             {
-                Id = Guid.NewGuid(),
+                Id = transId,
                 Monto = T.Monto,
                 merchanttransactionid = T.ReferenceCode,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                UsdtAddres = GenerateRandomAddress(48)
+                UsdtAddres = procesadorResponse.PayAddress,
+                Status = "Created",
+                TransactionId = procesadorResponse.OrderId,
+
 
             });
             return _mapper.Map<CryptoTransaction>(crypto);

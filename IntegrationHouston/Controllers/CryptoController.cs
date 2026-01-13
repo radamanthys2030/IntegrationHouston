@@ -8,7 +8,7 @@ namespace IntegrationHouston.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CryptoController : ControllerBase
     {
         private IApplicationContract _applicationContract;

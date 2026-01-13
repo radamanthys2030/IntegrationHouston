@@ -23,7 +23,7 @@ namespace Integration.Houston.Application.Infrastructure.EntityFramework
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "Host=tramway.proxy.rlwy.net;Port=53151;Database=tm_fibex_2;Username=dixon;Password=awhKnshJbs2Oplxn2axcv;Timeout=30";
+            string connectionString = "Host=switchyard.proxy.rlwy.net;Port=16685;Database=railway;Username=postgres;Password=VHqrvDiotkbNFQAxOuqUivintZibWysH;Timeout=30";
             optionsBuilder.UseNpgsql(connectionString);
 
         }

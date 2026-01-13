@@ -29,6 +29,9 @@ builder.Services.AddTransient<ICryptoTransactionRepositories, CryptoTransactionR
 builder.Services.AddTransient<IserviceTransaction, ServiceTransaction>();
 builder.Services.AddTransient<IApplicationContract, TransactionApplication>();
 
+builder.Services.AddTransient<ICryptoProcessor, OOPayProcessor>();
+
+
 
 
 
